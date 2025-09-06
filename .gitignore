@@ -1,0 +1,138 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Database
+*.db
+*.sqlite3
+*.sqlite
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+*.log.*
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Docker
+*.env
+*.env.*
+.envrc
+.dockerignore
+
+# Additional IDE configurations
+*.sublime-project
+*.sublime-workspace
+*.idea/
+*.vscode/
+*.code-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Uploads
+uploads/
+media/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Alembic
+alembic/versions/*.py
+!alembic/versions/.gitkeep
+
+# Tests
+tests/
+*.test.*
+
+# Scripts
+scripts/
+*.sh
+*.bat
+*.cmd
+
+# Development and Configuration Files
+requirements-dev.txt
+requirements-dev-extended.txt
+Dockerfile
+Dockerfile.prod
+Makefile
+.pre-commit-config.yaml
+pytest.ini
+
+# Documentation and Debugging Files
+CATEGORY_IMPLEMENTATION_SUMMARY.md
+CATEGORY_INTEGRATION_GUIDE.md
+FRONTEND_CATEGORIES_INTEGRATION.md
+FRONTEND_FIX_SUMMARY.md
+debug_subcategories.py
+categories_export.json

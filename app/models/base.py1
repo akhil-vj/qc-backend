@@ -1,0 +1,99 @@
+"""
+Base models and mixins for the application.
+"""
+
+from sqlalchemy import Column, DateTime, Boolean, String
+from sqlalchemy.sql import func
+from sqlalchemy.dialects.postgresql import UUID
+from app.core.database import Base
+import uuid
+
+
+class TimestampedModel:
+    """Mixin for models with created_at and updated_at timestamps."""
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class SoftDeleteModel:
+    """Mixin for models with soft delete functionality."""
+    
+    is_deleted = Column(Boolean, default=False, nullable=False)
+    deleted_at = Column(DateTime(timezone=True), nullable=True)
+
+
+class UUIDMixin:
+    """Mixin for models with UUID primary key."""
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+
+
+# Export for convenience
+__all__ = ['Base', 'TimestampedModel', 'SoftDeleteModel', 'UUIDMixin']
+    
+    __tablename__ = "rewards"
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), unique=True, nullable=False)
+    
+    # Coins
+    coins = Column(Integer, default=0)
+    lifetime_coins = Column(Integer, default=0)
+    
+    # Streaks
+    streak_days = Column(Integer, default=0)
+    last_checkin = Column(Date, nullable=True)
+    
+    # Referrals
+    referral_count = Column(Integer, default=0)
+    
+    # Tier system
+    tier = Column(String(50), default="bronze")  # bronze, silver, gold, platinum
+    tier_progress = Column(Integer, default=0)
+    
+    # Achievements
+    achievements = Column(JSONB, default=[])
+    
+    # Statistics
+    total_savings = Column(Decimal(10, 2), default=0)
+    orders_count = Column(Integer, default=0)
+    
+    # Relationships
+    user = relationship("User", back_populates="reward")
+    transactions = relationship("RewardTransaction", back_populates="reward")
+    
+    # Constraints
+    __table_args__ = (
+        CheckConstraint("coins >= 0", name="check_non_negative_coins"),
+        CheckConstraint("streak_days >= 0", name="check_non_negative_streak"),
+        Index("idx_rewards_tier", "tier"),
+    )
+
+class RewardTransaction(Base, TimestampedModel):
+    """Reward transaction history"""
+    
+    __tablename__ = "reward_transactions"
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    reward_id = Column(UUID(as_uuid=True), ForeignKey("rewards.id"), nullable=False)
+    
+    # Transaction details
+    type = Column(String(50), nullable=False)  # earned, redeemed, expired, adjusted
+    coins = Column(Integer, nullable=False)
+    balance_after = Column(Integer, nullable=False)
+    
+    # Reference
+    reference_type = Column(String(50), nullable=True)  # order, referral, checkin, etc.
+    reference_id = Column(UUID(as_uuid=True), nullable=True)
+    
+    description = Column(String(500), nullable=False)
+    
+    # Relationships
+    reward = relationship("Reward", back_populates="transactions")
+    
+    # Indexes
+    __table_args__ = (
+        Index("idx_reward_transactions_reward_type", "reward_id", "type"),
+        Index("idx_reward_transactions_created", "created_at"),
+    )
