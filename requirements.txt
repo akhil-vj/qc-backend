@@ -27,7 +27,7 @@ flower==2.0.1
 
 # File Processing
 python-magic==0.4.27
-pillow==10.3.0
+pillow==10.3.0 --only-binary=:all:
 aiofiles==23.2.1
 
 # Cloud Storage
