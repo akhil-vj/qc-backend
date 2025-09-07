@@ -5,8 +5,9 @@ pydantic==2.8.2
 pydantic-settings==2.1.0
 python-multipart==0.0.6
 
-# Email validation (MISSING - this was causing the error)
+# Email validation and templating
 email-validator==2.1.0
+jinja2==3.1.3
 
 # Database
 sqlalchemy==2.0.25
