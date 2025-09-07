@@ -64,4 +64,3 @@ bleach==6.1.0
 
 # Additional dependencies that might be needed
 websockets==12.0
-python-magic-bin==0.4.14
