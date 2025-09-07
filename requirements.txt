@@ -43,6 +43,7 @@ razorpay==1.4.1
 
 # Communication
 twilio==8.11.0
+aiosmtplib==2.0.2
 
 # Utilities
 python-decouple==3.8
